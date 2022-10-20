@@ -1,4 +1,4 @@
-package com.example.enterprisejavadevelopmentbanksystem.model;
+package com.example.enterprisejavadevelopmentbanksystem.model.user;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.example.enterprisejavadevelopmentbanksystem.model;
+package com.example.enterprisejavadevelopmentbanksystem.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,17 +14,18 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {
 
+    //-----------------------Attributes
     @Id
-    @Column(name="user_id")
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-//-----------------------Attributes
+
     private Long userID;
 
     @Column(nullable = false)
     private String name;
 
-//-----------------------Constructors
+    //-----------------------Constructors
     public User() {
 
     }
