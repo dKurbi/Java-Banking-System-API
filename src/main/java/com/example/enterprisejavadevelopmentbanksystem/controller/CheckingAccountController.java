@@ -21,12 +21,12 @@ public class CheckingAccountController {
 
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public CheckingAccount newCheckingAccount(@RequestParam("owner") AccountHolderUser owner,
-                                              @RequestParam("secondary_owner") Optional<AccountHolderUser> secondaryOwner,
+    public CheckingAccount newCheckingAccount(@RequestParam("owner_id") Long ownerId,
+                                              @RequestParam("secondary_owner_id") Optional<Long> secondaryOwnerId,
                                               @RequestParam("currency") Optional<String> currency,
                                               @RequestParam("secret_key") String secretKey) {
 
-        return checkingAccountService.newCheckingAccount(owner, secondaryOwner, currency, secretKey);
+        return checkingAccountService.newCheckingAccount(ownerId, secondaryOwnerId, currency, secretKey);
 
     }
 }
