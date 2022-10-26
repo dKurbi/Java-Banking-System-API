@@ -1,10 +1,15 @@
 package com.example.enterprisejavadevelopmentbanksystem.model.account;
 
+import com.example.enterprisejavadevelopmentbanksystem.model.user.AccountHolderUser;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Currency;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -14,7 +19,11 @@ import java.time.LocalDateTime;
 public abstract class BasicAccount {
 
 
-    //---------- Attributes
+    /**
+     * -------------------------- Attributes---------------------------
+     **/
+    private static final Currency USD = Currency.getInstance("USD");
+
     @Id
     @Column(name = "account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +32,61 @@ public abstract class BasicAccount {
 
     private LocalDateTime creationDate;
 
-    //------------Constructors
+    @Embedded
+
+    private Money balance;
+
+    @NotNull
+    @ManyToOne
+    private AccountHolderUser owner;
+
+    @ManyToOne
+    private AccountHolderUser secondaryOwner;
 
 
-    public BasicAccount(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
+    /**-------------------------Constructors --------------------**/
+    /**
+     * Create account with Owner, Secondary Owner and specific Currency
+     **/
+
+    public BasicAccount(AccountHolderUser owner, AccountHolderUser secondaryOwner, Currency currency) {
+        this.creationDate = LocalDateTime.now();
+        this.owner = owner;
+        this.secondaryOwner = secondaryOwner;
+        this.balance = new Money(new BigDecimal(0), currency);
     }
 
+    /**
+     * Create account with Owner and Secondary Owner with default Currency (EU)
+     **/
+
+    public BasicAccount(AccountHolderUser owner, AccountHolderUser secondaryOwner) {
+        Currency EUR = Currency.getInstance("EUR");
+        this.creationDate = LocalDateTime.now();
+        this.owner = owner;
+        this.secondaryOwner = secondaryOwner;
+        this.balance = new Money(new BigDecimal(0),EUR);
+
+    }
+
+    /**
+     * Create account with Owner and specific Currency
+     **/
+    public BasicAccount(AccountHolderUser owner, Currency currency) {
+        this.creationDate = LocalDateTime.now();
+        this.owner = owner;
+        this.balance = new Money(new BigDecimal(0), currency);
+    }
+
+    /**
+     * Create account with Owner with default Currency (EU)
+     **/
+    public BasicAccount(AccountHolderUser owner) {
+        Currency EUR = Currency.getInstance("EUR");
+        this.creationDate = LocalDateTime.now();
+        this.owner = owner;
+        this.balance = new Money(new BigDecimal(0), EUR);
+    }
     public BasicAccount() {
     }
 }

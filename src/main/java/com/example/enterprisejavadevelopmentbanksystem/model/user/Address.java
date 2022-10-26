@@ -28,6 +28,11 @@ public class Address {
 
     private String country;
 
+    @OneToOne
+    private AccountHolderUser client;
+
+
+
     //-----------------------Constructors
     public Address() {
     }
