@@ -15,12 +15,11 @@ public class ThirdPartyUser extends User {
 
 
     //-------------------- Attributes
-    @Column(nullable = false)
-    private String hashKey;
+
 
     public ThirdPartyUser(String name, String hashKey) {
-        super(name);
-        this.hashKey = hashKey;
+        super(name, hashKey);
+
     }
 
 

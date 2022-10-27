@@ -1,6 +1,7 @@
 package com.example.enterprisejavadevelopmentbanksystem.controller;
 
 import com.example.enterprisejavadevelopmentbanksystem.model.account.CheckingAccount;
+import com.example.enterprisejavadevelopmentbanksystem.model.account.dto.CheckingAccountDto;
 import com.example.enterprisejavadevelopmentbanksystem.model.user.AccountHolderUser;
 import com.example.enterprisejavadevelopmentbanksystem.service.account.CheckingAccountService;
 import lombok.RequiredArgsConstructor;
@@ -12,21 +13,18 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/checking_account")
+@RequestMapping("/checking_accounts")
 public class CheckingAccountController {
 
 
     private final CheckingAccountService checkingAccountService;
 
 
-    @PostMapping("/new")
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public CheckingAccount newCheckingAccount(@RequestParam("owner_id") Long ownerId,
-                                              @RequestParam("secondary_owner_id") Optional<Long> secondaryOwnerId,
-                                              @RequestParam("currency") Optional<String> currency,
-                                              @RequestParam("secret_key") String secretKey) {
+    public CheckingAccount newCheckingAccount(@RequestBody CheckingAccountDto checkingAccountDto) {
 
-        return checkingAccountService.newCheckingAccount(ownerId, secondaryOwnerId, currency, secretKey);
+        return checkingAccountService.newCheckingAccount(checkingAccountDto);
 
     }
 }

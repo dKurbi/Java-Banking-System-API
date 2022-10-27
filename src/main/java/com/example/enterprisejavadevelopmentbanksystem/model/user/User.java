@@ -1,11 +1,11 @@
 package com.example.enterprisejavadevelopmentbanksystem.model.user;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Setter
@@ -16,21 +16,27 @@ public abstract class User {
 
     //-----------------------Attributes
     @Id
-    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
 
     private Long userID;
 
-    @Column(nullable = false)
+
+    @NotNull
     private String name;
+
+    @NotNull
+    private String password;
+
 
     //-----------------------Constructors
     public User() {
 
     }
 
-    public User(String name) {
+
+    public User(String name, String password) {
         this.name = name;
+        this.password = password;
     }
 }

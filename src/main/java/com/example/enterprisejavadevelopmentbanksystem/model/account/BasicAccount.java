@@ -1,6 +1,7 @@
 package com.example.enterprisejavadevelopmentbanksystem.model.account;
 
 import com.example.enterprisejavadevelopmentbanksystem.model.user.AccountHolderUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,9 +39,11 @@ public abstract class BasicAccount {
 
     @NotNull
     @ManyToOne
+    @JsonIgnore
     private AccountHolderUser owner;
 
     @ManyToOne
+    @JsonIgnore
     private AccountHolderUser secondaryOwner;
 
 

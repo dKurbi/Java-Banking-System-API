@@ -13,7 +13,6 @@ import java.util.Currency;
 @Entity
 @Getter
 @Setter
-
 public abstract class Account extends BasicAccount{
 
 /**-----------------------------------Attributes-----------------------------------**/
@@ -45,6 +44,11 @@ public abstract class Account extends BasicAccount{
      **/
     public Account(AccountHolderUser owner, AccountHolderUser secondaryOwner, String secretKey) {
         super(owner, secondaryOwner);
+        setSecretKey(secretKey);
+    }
+
+    public Account(String secretKey) {
+        super();
         setSecretKey(secretKey);
     }
 

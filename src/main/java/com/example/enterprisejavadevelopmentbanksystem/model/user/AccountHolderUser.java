@@ -1,14 +1,12 @@
 package com.example.enterprisejavadevelopmentbanksystem.model.user;
 
 import com.example.enterprisejavadevelopmentbanksystem.model.account.BasicAccount;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
@@ -19,23 +17,24 @@ import java.util.Set;
 @Getter
 @ToString
 
-public class AccountHolderUser extends User{
+public class AccountHolderUser extends User {
 
     //-----------------Attributes
     private LocalDate dateOfBirth;
 
-
-    @OneToOne
+    @ManyToOne
     @NotNull
     private Address primaryAddress;
 
-    /*@OneToOne
+    @ManyToOne
     private Address mailAddress;
-*/
+
     @OneToMany(mappedBy = "owner")
+    @JsonIgnore
     private Set<BasicAccount> ownerAccountAssociation;
 
     @OneToMany(mappedBy = "secondaryOwner")
+    @JsonIgnore
     private Set<BasicAccount> secondaryOwnerAccountAssociation;
 
 
@@ -44,8 +43,15 @@ public class AccountHolderUser extends User{
     public AccountHolderUser() {
     }
 
-    public AccountHolderUser(String name, LocalDate dateOfBirth) {
-        super(name);
+    public AccountHolderUser(String name, String password, LocalDate dateOfBirth) {
+        super(name, password);
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public AccountHolderUser(String name, String password, LocalDate dateOfBirth, Address primaryAddress) {
+        super(name, password);
+        this.dateOfBirth = dateOfBirth;
+        this.primaryAddress = primaryAddress;
+
     }
 }

@@ -43,7 +43,9 @@ public class CheckingAccount extends Account {
         super(owner, secondaryOwner, currency, secretKey);
     }
 
-
+    public CheckingAccount(String secretKey) {
+        super(secretKey);
+    }
     public CheckingAccount() {
 
     }

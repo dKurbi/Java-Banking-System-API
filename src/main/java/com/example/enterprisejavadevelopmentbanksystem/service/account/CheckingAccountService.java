@@ -1,12 +1,17 @@
 package com.example.enterprisejavadevelopmentbanksystem.service.account;
 
+import com.example.enterprisejavadevelopmentbanksystem.enums.AccountStatus;
 import com.example.enterprisejavadevelopmentbanksystem.model.account.CheckingAccount;
+import com.example.enterprisejavadevelopmentbanksystem.model.account.Money;
+import com.example.enterprisejavadevelopmentbanksystem.model.account.dto.CheckingAccountDto;
 import com.example.enterprisejavadevelopmentbanksystem.model.user.AccountHolderUser;
 import com.example.enterprisejavadevelopmentbanksystem.repository.acoount.CheckingAccountRepository;
-import com.example.enterprisejavadevelopmentbanksystem.repository.user.AccountHolderRepository;
+import com.example.enterprisejavadevelopmentbanksystem.repository.user.AccountHolderUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import java.time.LocalDate;
@@ -17,46 +22,42 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CheckingAccountService {
     private final CheckingAccountRepository checkingAccountRepository;
-    private final AccountHolderRepository accountHolderRepository;
+    private final AccountHolderUserRepository accountHolderUserRepository;
 
 
-    public CheckingAccount newCheckingAccount(Long ownerId, Optional<Long> secondaryOwnerId, Optional<String> currency, String secretKey) {
-        if (accountHolderRepository.findById(ownerId).isEmpty()) return null; // Falta hacer la gestion de errores
+    public CheckingAccount newCheckingAccount(CheckingAccountDto checkingAccountDto) {
+        if (accountHolderUserRepository.findById(checkingAccountDto.getOwnerId()).isEmpty())
+            return null; // Falta hacer la gestion de errores
 
-        AccountHolderUser owner = accountHolderRepository.findById(ownerId).get();
+        AccountHolderUser owner = accountHolderUserRepository.findById(checkingAccountDto.getOwnerId()).get();
 
         if (getOwnerAge(owner.getDateOfBirth()) > 24) {
+            CheckingAccount checkingAccount = new CheckingAccount(checkingAccountDto.getSecretKey());
+            checkingAccount.setOwner(owner);
+            checkingAccount.setCreationDate(LocalDateTime.now());
 
-            /*---- Aca debe implementarse el error en caso de que el secondaryOwnerId este presente pero el Id no
-             *  ----pertenezca  a ningun AccountHolderUser
-             */
-            if (secondaryOwnerId.isPresent() && accountHolderRepository.findById(secondaryOwnerId.get()).isEmpty()) {
-                return null;
-            }
-            /*--------------------------------------------------------------**/
+            if (checkingAccountDto.getCurrency().isPresent()) {
+                Currency Other = Currency.getInstance(checkingAccountDto.getCurrency().get());
+                Money money = new Money(new BigDecimal(0), Other);
+                checkingAccount.setBalance(money);
+            } else {
+                Currency Eur = Currency.getInstance("EUR");
+                Money money = new Money(new BigDecimal(0), Eur);
+                checkingAccount.setBalance(money);
 
-
-            Optional<AccountHolderUser> secondaryOwner = accountHolderRepository.findById(secondaryOwnerId.get());
-
-            if (secondaryOwner.isPresent() && currency.isPresent()) {
-
-                CheckingAccount newCheckingAccount = new CheckingAccount(owner, secondaryOwner.get(), stringToCurrency(currency.get()), secretKey);
-                return checkingAccountRepository.save(newCheckingAccount);
-
-            } else if (secondaryOwner.isPresent()) {
-
-                CheckingAccount newCheckingAccount = new CheckingAccount(owner, secondaryOwner.get(), secretKey);
-                return checkingAccountRepository.save(newCheckingAccount);
-
-            } else if (currency.isPresent()) {
-
-                CheckingAccount newCheckingAccount = new CheckingAccount(owner, stringToCurrency(currency.get()), secretKey);
-                return checkingAccountRepository.save(newCheckingAccount);
             }
 
-            CheckingAccount newCheckingAccount = new CheckingAccount(owner, secretKey);
-            return checkingAccountRepository.save(newCheckingAccount);
+            checkingAccount.setStatus(AccountStatus.ACTIVE);
+            if (checkingAccountDto.getSecondaryOwnerId().isPresent()) {
+                Optional<AccountHolderUser> secondaryOwner = accountHolderUserRepository.findById(checkingAccountDto.getSecondaryOwnerId().get());
+                if (secondaryOwner.isPresent()) {
+                    checkingAccount.setSecondaryOwner(secondaryOwner.get());
 
+                } else {
+                    return null; // falta gestion de errores
+                }
+            }
+            return checkingAccountRepository.save(checkingAccount);
         }
 
         // Falta Hacer Gestion de Errores, se tiene que crear una StudentCheckingAccount /////

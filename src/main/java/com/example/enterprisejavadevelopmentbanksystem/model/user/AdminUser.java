@@ -17,7 +17,7 @@ public class AdminUser extends User {
     public AdminUser() {
     }
 
-    public AdminUser(String name) {
-        super(name);
+    public AdminUser(String name, String password) {
+        super(name, password);
     }
 }
