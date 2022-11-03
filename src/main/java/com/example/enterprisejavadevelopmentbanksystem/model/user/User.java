@@ -6,13 +6,15 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Setter
 @Getter
 @ToString
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User {
+public class User {
 
     //-----------------------Attributes
     @Id
@@ -28,6 +30,11 @@ public abstract class User {
     @NotNull
     private String password;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     //-----------------------Constructors
     public User() {

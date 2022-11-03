@@ -9,7 +9,6 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -40,6 +39,7 @@ public class AccountHolderUser extends User {
 
     //------------------- Constructors
 
+
     public AccountHolderUser() {
     }
 
@@ -48,10 +48,11 @@ public class AccountHolderUser extends User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public AccountHolderUser(String name, String password, LocalDate dateOfBirth, Address primaryAddress) {
+    public AccountHolderUser(String name, String password, LocalDate dateOfBirth, Address primaryAddress, Set<Role> roles) {
         super(name, password);
         this.dateOfBirth = dateOfBirth;
         this.primaryAddress = primaryAddress;
+        this.setRoles(roles);
 
     }
 }
