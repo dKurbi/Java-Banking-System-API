@@ -11,6 +11,7 @@ import com.example.enterprisejavadevelopmentbanksystem.model.user.AccountHolderU
 import com.example.enterprisejavadevelopmentbanksystem.repository.account.CheckingAccountRepository;
 import com.example.enterprisejavadevelopmentbanksystem.repository.user.AccountHolderUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -28,6 +29,7 @@ public class CheckingAccountService {
     private final AccountHolderUserRepository accountHolderUserRepository;
 
     private final StudentCheckingAccountService studentCheckingAccountService;
+    private final PasswordEncoder encoder;
 
 
     public Account newCheckingAccount(CheckingAccountDto checkingAccountDto) {
@@ -36,7 +38,7 @@ public class CheckingAccountService {
         AccountHolderUser owner = accountHolderUserRepository.findById(checkingAccountDto.getOwnerId()).get();
 
         if (getOwnerAge(owner.getDateOfBirth()) > 24) {
-            CheckingAccount checkingAccount = new CheckingAccount(checkingAccountDto.getSecretKey());
+            CheckingAccount checkingAccount = new CheckingAccount(encoder.encode(checkingAccountDto.getSecretKey()));
             checkingAccount.setOwner(owner);
             checkingAccount.setCreationDate(LocalDateTime.now());
 

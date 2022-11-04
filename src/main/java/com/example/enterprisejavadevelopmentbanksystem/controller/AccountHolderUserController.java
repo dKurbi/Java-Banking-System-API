@@ -1,5 +1,4 @@
 package com.example.enterprisejavadevelopmentbanksystem.controller;
-
 import com.example.enterprisejavadevelopmentbanksystem.model.user.AccountHolderUser;
 import com.example.enterprisejavadevelopmentbanksystem.model.user.dto.AccountHolderUserAndAddressDto;
 import com.example.enterprisejavadevelopmentbanksystem.service.user.AccountHolderUserService;
@@ -32,4 +31,5 @@ public class AccountHolderUserController {
         return accountHolderUserService.getAll();
     }
 }
+
 
