@@ -1,0 +1,350 @@
+{
+	"info": {
+		"_postman_id": "34c3cc94-2145-4595-a9fd-0233de8080e3",
+		"name": "BankSystem EndPoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23506484"
+	},
+	"item": [
+		{
+			"name": "1) Initialization",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/appi/init_data/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"appi",
+						"init_data",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2) Sign In",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Diego\",\r\n    \"password\": \"kurbi\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3) Post Account Holder",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Diego\",\r\n    \"password\": \"kurbi\",\r\n    \"dateOfBirth\": \"1983-12-03\",\r\n    \"primaryAddressStreet\": \"Juan de los palotes 123\",\r\n    \"primaryAddressCity\": \"Girona\",\r\n    \"primaryAddressPostalCode\": \"98912\",\r\n    \"primaryAddressCountry\": \"España\",\r\n    \"hasMailAddress\": \"false\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/account_holders/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account_holders",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4) Get Account Holder",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/account_holders/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account_holders",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5) Post Checking Accounts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"ownerId\":\"2\",\r\n\"secretKey\":\"clave\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/checking_accounts/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"checking_accounts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6) Get Checking Accounts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/checking_accounts/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"checking_accounts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7) Post Student Checking Account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBZG1pbiIsImlhdCI6MTY2NzYyMjc0NSwiZXhwIjoxNjY3NzA5MTQ1fQ.IPHzm9_x7VpP19wYAiu3WUYZ6I4_JXUtbKj9dkzzm0XN3C_Lc5wGCoY-gmR0UrsqgIeYo8L2-2ukcrhy_mjL5A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"ownerId\": \"4\",\r\n\"secretKey\": \"secret\"\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/student_checking_accounts/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student_checking_accounts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8) Get Student Checking Account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBZG1pbiIsImlhdCI6MTY2NzYyMjc0NSwiZXhwIjoxNjY3NzA5MTQ1fQ.IPHzm9_x7VpP19wYAiu3WUYZ6I4_JXUtbKj9dkzzm0XN3C_Lc5wGCoY-gmR0UrsqgIeYo8L2-2ukcrhy_mjL5A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/student_checking_accounts/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"student_checking_accounts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9) Get Basic Accounts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBZG1pbiIsImlhdCI6MTY2NzYyMjc0NSwiZXhwIjoxNjY3NzA5MTQ1fQ.IPHzm9_x7VpP19wYAiu3WUYZ6I4_JXUtbKj9dkzzm0XN3C_Lc5wGCoY-gmR0UrsqgIeYo8L2-2ukcrhy_mjL5A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/basic_accounts/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"basic_accounts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10) Get Balance from Accounts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJEaWVnbyIsImlhdCI6MTY2NzYyMzE4MSwiZXhwIjoxNjY3NzA5NTgxfQ.fbjEvHMCDcX4XNQoxF12tNL4C7lb5gTbfVIlMBYDmA4IFnvaafv5TuL3pMNRhwMUnrrS7XBfL4x2wOmW7sQMvA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"secretKey\":\"secret\",\r\n    \"accountId\":\"6\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/accounts/balance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"accounts",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "Token",
+			"value": "eyJzdWIiOiJEaWVnbyIsImlhdCI6MTY2NzUwOTA4MywiZXhwIjoxNjY3NTk1NDgzfQ"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBZG1pbiIsImlhdCI6MTY2NzU3NjEyOSwiZXhwIjoxNjY3NjYyNTI5fQ.VXS6-iGZoKp3vUZm4Tn2yVerg7Ap6fDJlr-37Rs5jqESH4NLDdq-AJZKvat7aXK32Y61fAaCKHeYyFNeDMxK6Q"
+		}
+	]
+}
