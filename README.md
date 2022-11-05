@@ -35,5 +35,7 @@ EndPoints
 
 
 Se incluye el fichero "BankSystem EndPoints.postman_collection.json" donde se incluyen todos los endpoints para ser utilizados en Postman
-Diagrama de clases
+
+	
+	Diagrama de clases
 ![MidtermBankSystem drawio](https://user-images.githubusercontent.com/110189061/200124831-860d4e69-0752-4f26-9da1-2a148fc2eaf5.png)
