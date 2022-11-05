@@ -33,4 +33,4 @@ EndPoints
 			Se debe enviar un bodyrequest con los siguientes atributos: secretKey (String), accountId (Long). 
 
 
-
+Se incluye el fichero "BankSystem EndPoints.postman_collection.json" donde se incluyen todos los endpoints para ser utilizados en Postman
