@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,28 +25,30 @@ public class InitDataService {
 
     public void initData() {
 
-        Role admin = new Role();
-        admin.setName(ERole.ROLE_ADMIN);
-        roleRepository.save(admin);
+            Role admin = new Role();
+            admin.setName(ERole.ROLE_ADMIN);
+            roleRepository.save(admin);
 
-        Role accountHolder = new Role();
-        accountHolder.setName(ERole.ROLE_ACCOUNT_HOLDER);
-        roleRepository.save(accountHolder);
+            Role accountHolder = new Role();
+            accountHolder.setName(ERole.ROLE_ACCOUNT_HOLDER);
+            roleRepository.save(accountHolder);
 
-        Role thirdParty = new Role();
-        thirdParty.setName(ERole.ROLE_THIRD_PARTY);
-        roleRepository.save(thirdParty);
+            Role thirdParty = new Role();
+            thirdParty.setName(ERole.ROLE_THIRD_PARTY);
+            roleRepository.save(thirdParty);
 
 
+            AdminUser adminUser = new AdminUser("Admin", encoder.encode("admin"));
+            Set<Role> roles = new HashSet<>();
 
-        AdminUser adminUser = new AdminUser("Diego", encoder.encode("kurbi"));
-        Set<Role> roles = new HashSet<>();
+            Role role = roleRepository.findByName(ERole.ROLE_ADMIN)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(role);
+            adminUser.setRoles(roles);
+            adminUserRepository.save(adminUser);
 
-        Role role = roleRepository.findByName(ERole.ROLE_ADMIN)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        roles.add(role);
-        adminUser.setRoles(roles);
-        adminUserRepository.save(adminUser);
     }
 
 }
+
+

@@ -1,12 +1,12 @@
 package com.example.enterprisejavadevelopmentbanksystem.controller;
 
 import com.example.enterprisejavadevelopmentbanksystem.model.account.Account;
-import com.example.enterprisejavadevelopmentbanksystem.model.account.CheckingAccount;
 import com.example.enterprisejavadevelopmentbanksystem.model.account.StudentCheckingAccount;
 import com.example.enterprisejavadevelopmentbanksystem.model.account.dto.CheckingAccountDto;
 import com.example.enterprisejavadevelopmentbanksystem.service.account.StudentCheckingAccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +19,7 @@ public class StudentCheckingAccountController {
 
 
     @PostMapping("/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public Account newCheckingAccount(@RequestBody CheckingAccountDto checkingAccountDto) {
 
@@ -27,6 +28,7 @@ public class StudentCheckingAccountController {
     }
 
     @GetMapping("/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public List<StudentCheckingAccount> getAll(){
         return studentCheckingAccountService.getAll();

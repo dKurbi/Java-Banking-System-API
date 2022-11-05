@@ -1,6 +1,7 @@
 package com.example.enterprisejavadevelopmentbanksystem.service.user;
 
 import com.example.enterprisejavadevelopmentbanksystem.enums.ERole;
+import com.example.enterprisejavadevelopmentbanksystem.exception.NameAlreadyExistException;
 import com.example.enterprisejavadevelopmentbanksystem.model.user.AccountHolderUser;
 import com.example.enterprisejavadevelopmentbanksystem.model.user.Address;
 import com.example.enterprisejavadevelopmentbanksystem.model.user.Role;
@@ -12,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +31,9 @@ public class AccountHolderUserService {
 
 
     public AccountHolderUser newAccountHolderUser(AccountHolderUserAndAddressDto accountHolderUserAndAddressDto) {
+        if (accountHolderUserRepository.existsByNameLike(accountHolderUserAndAddressDto.getName())) {
+            throw new NameAlreadyExistException(accountHolderUserAndAddressDto.getName());
+        }
         Address address = new Address(accountHolderUserAndAddressDto.getPrimaryAddressStreet(),
                 accountHolderUserAndAddressDto.getPrimaryAddressCity(),
                 accountHolderUserAndAddressDto.getPrimaryAddressPostalCode(),

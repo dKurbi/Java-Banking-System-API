@@ -5,9 +5,7 @@ import com.example.enterprisejavadevelopmentbanksystem.model.user.AccountHolderU
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import java.time.LocalDateTime;
 import java.util.Currency;
 
 @Entity
@@ -23,25 +21,25 @@ public abstract class Account extends BasicAccount{
 
 
 
-    /**--------------------------------Constructors---------------------------------**/
-    /**
+    /*--------------------------------Constructors---------------------------------**/
+    /*
      * Create account with Owner, default Currency (EUR) and secret key
      **/
     public Account(AccountHolderUser owner, String secretKey) {
         super(owner);
         setSecretKey(secretKey);
     }
-    /**
+    /*
      * Create account with Owner, specific Currency and secret key
-     **/
+     */
     public Account(AccountHolderUser owner, Currency currency, String secretKey) {
         super(owner, currency);
         setSecretKey(secretKey);
     }
 
-    /**
+    /*
      * Create account with Owner, secondary Owner, default currency (EUR) and secret key
-     **/
+     */
     public Account(AccountHolderUser owner, AccountHolderUser secondaryOwner, String secretKey) {
         super(owner, secondaryOwner);
         setSecretKey(secretKey);
@@ -53,9 +51,9 @@ public abstract class Account extends BasicAccount{
     }
 
 
-    /**
+    /*
      * Create account with Owner, secondary Owner, specific currency and secret key
-     **/
+     */
     public Account(AccountHolderUser owner, AccountHolderUser secondaryOwner, Currency currency, String secretKey) {
         super(owner, secondaryOwner, currency);
         setSecretKey(secretKey);
@@ -66,12 +64,12 @@ public abstract class Account extends BasicAccount{
     public Account() {
     }
 
-    /**--------------------------Setter-----------------------------------------**/
+    /*--------------------------Setter-----------------------------------------**/
 
     //Hago el Set secret key para luego implementar la logica de validacion del Secret Key
     private void setSecretKey (String secretKey)
     {
         this.secretKey = secretKey;
-    };
+    }
 
 }

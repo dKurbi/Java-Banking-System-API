@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/appi/init_data")
+@RequestMapping("/api/init_data")
 public class InitDataController {
 
     private final InitDataService initDataService;

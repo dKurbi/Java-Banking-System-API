@@ -1,6 +1,8 @@
 package com.example.enterprisejavadevelopmentbanksystem.service.account;
 
 import com.example.enterprisejavadevelopmentbanksystem.enums.AccountStatus;
+import com.example.enterprisejavadevelopmentbanksystem.exception.AccountHolderIdNotFoundException;
+import com.example.enterprisejavadevelopmentbanksystem.exception.OlderThan24Exception;
 import com.example.enterprisejavadevelopmentbanksystem.model.account.Account;
 import com.example.enterprisejavadevelopmentbanksystem.model.account.Money;
 import com.example.enterprisejavadevelopmentbanksystem.model.account.StudentCheckingAccount;
@@ -9,6 +11,7 @@ import com.example.enterprisejavadevelopmentbanksystem.model.user.AccountHolderU
 import com.example.enterprisejavadevelopmentbanksystem.repository.account.StudentCheckingAccountRepository;
 import com.example.enterprisejavadevelopmentbanksystem.repository.user.AccountHolderUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -28,15 +31,18 @@ public class StudentCheckingAccountService {
 
     private final StudentCheckingAccountRepository studentCheckingAccountRepository;
 
+    private final PasswordEncoder encoder;
+
+
     public Account newStudentCheckingAccount(CheckingAccountDto checkingAccountDto) {
         if (accountHolderUserRepository.findById(checkingAccountDto.getOwnerId()).isEmpty())
-            return null; // Falta hacer la gestion de errores
+            throw new AccountHolderIdNotFoundException(checkingAccountDto.getOwnerId());
 
         AccountHolderUser owner = accountHolderUserRepository.findById(checkingAccountDto.getOwnerId()).get();
         if (getOwnerAge(owner.getDateOfBirth()) > 24) {
-            return null;// falta hacer gestion de errores por que no se puede crear una student checking account siendo ayor de 24
+            throw new OlderThan24Exception(getOwnerAge(owner.getDateOfBirth()), owner.getUserID());
         }
-        StudentCheckingAccount studentCheckingAccount = new StudentCheckingAccount(checkingAccountDto.getSecretKey());
+        StudentCheckingAccount studentCheckingAccount = new StudentCheckingAccount(encoder.encode(checkingAccountDto.getSecretKey()));
         studentCheckingAccount.setOwner(owner);
         studentCheckingAccount.setCreationDate(LocalDateTime.now());
 

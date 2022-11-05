@@ -7,7 +7,9 @@ import lombok.Setter;
 @Setter
 public class GetBalanceDto {
 
-    private Long ownerId;
+    private String secretKey;
 
     private Long accountId;
+
+
 }

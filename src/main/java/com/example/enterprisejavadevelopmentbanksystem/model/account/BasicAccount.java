@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Currency;
-import java.util.Optional;
 
 @Entity
 @Getter
@@ -20,13 +19,12 @@ import java.util.Optional;
 public abstract class BasicAccount {
 
 
-    /**
+    /*
      * -------------------------- Attributes---------------------------
      **/
     private static final Currency USD = Currency.getInstance("USD");
 
     @Id
-    @Column(name = "account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long accountID;
@@ -47,8 +45,8 @@ public abstract class BasicAccount {
     private AccountHolderUser secondaryOwner;
 
 
-    /**-------------------------Constructors --------------------**/
-    /**
+    /*-------------------------Constructors --------------------**/
+    /*
      * Create account with Owner, Secondary Owner and specific Currency
      **/
 
@@ -59,7 +57,7 @@ public abstract class BasicAccount {
         this.balance = new Money(new BigDecimal(0), currency);
     }
 
-    /**
+    /*
      * Create account with Owner and Secondary Owner with default Currency (EU)
      **/
 
@@ -72,7 +70,7 @@ public abstract class BasicAccount {
 
     }
 
-    /**
+    /*
      * Create account with Owner and specific Currency
      **/
     public BasicAccount(AccountHolderUser owner, Currency currency) {
@@ -81,7 +79,7 @@ public abstract class BasicAccount {
         this.balance = new Money(new BigDecimal(0), currency);
     }
 
-    /**
+    /*
      * Create account with Owner with default Currency (EU)
      **/
     public BasicAccount(AccountHolderUser owner) {
