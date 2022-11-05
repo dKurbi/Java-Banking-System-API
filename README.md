@@ -13,6 +13,7 @@ EndPoints
 		
 4) (ROLE_ADMIN) (Get) /account_holders/ -> Este enpoint entrega un listado de todos los AccountHoldersUser.
 
+
 5) (ROLE_ADMIN) (Post) /checking_accounts/ -> Este enpoint crea una ChekingAccount. Se debe enviar como parametro un bodyrequest con los siguientes atributos:   ownerId (Long), secondaryOwnerId (Optional<Long>),
 		currency(Optional<String>), secretKey (String). En caso de que el dueño es menor de 24 años, creara una StudentCheckingAccount.
 
@@ -34,3 +35,5 @@ EndPoints
 
 
 Se incluye el fichero "BankSystem EndPoints.postman_collection.json" donde se incluyen todos los endpoints para ser utilizados en Postman
+Diagrama de clases
+![MidtermBankSystem drawio](https://user-images.githubusercontent.com/110189061/200124831-860d4e69-0752-4f26-9da1-2a148fc2eaf5.png)
