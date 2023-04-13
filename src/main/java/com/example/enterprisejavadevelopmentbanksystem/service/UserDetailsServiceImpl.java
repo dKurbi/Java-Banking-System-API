@@ -3,7 +3,6 @@ package com.example.enterprisejavadevelopmentbanksystem.service;
 import com.example.enterprisejavadevelopmentbanksystem.model.user.User;
 import com.example.enterprisejavadevelopmentbanksystem.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
