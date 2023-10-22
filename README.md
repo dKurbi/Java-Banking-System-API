@@ -1,41 +1,31 @@
-Se han desarrollado los siguientes funcionalidades del proyecto:
+The following project functionalities have been developed:
 
 EndPoints
-1) (Get) /api/init_data -> Inicializa la base de datos cuando se encuentra vacia, crea un AdminUser con nombre Admin y password admin, y completa las tablas de roles.
-		una vez llamado a este metodo, la aplicacion esta lista para empezar a utilizarse.
+1) (Get) /api/init_data -> Initializes the database when it's empty, creates an AdminUser with the name Admin and password admin, and populates the roles tables. Once this method is called, the application is ready for use.
 
-2) (ROLE_ADMIN) (Post) /api/auth/signin -> Este endpoint permite hacer un Login en la aplicacion. Se debe enviar como parametro un bodyrequest que contenga los siguientes atributos, name(string) y password (string)
-		
+2) (ROLE_ADMIN) (Post) /api/auth/signin -> This endpoint allows logging into the application. You should send a body request with the following attributes: name (string) and password (string).
 
-3) (ROLE_ADMIN) (Post) /account_holders/ -> este endpoint se encarga de crear un AccountHolderUser. Se debe enviar como parametro un bodyrequest con los siguientes atributos:
-		name (String), password (String ), dateOfBirth (LocalDate), primaryAddressStreet (String),primaryAddressCity (String),primaryAddressPostalCode (String), primaryAddressCountry (String),
-		hasMailAddress (Boolean), mailAddressStreet (String), mailAddressCity (String),mailAddressPostalCode (String), mailAddressCountry (String).
-		
-4) (ROLE_ADMIN) (Get) /account_holders/ -> Este enpoint entrega un listado de todos los AccountHoldersUser.
+3) (ROLE_ADMIN) (Post) /account_holders/ -> This endpoint is responsible for creating an AccountHolderUser. You should send a body request with the following attributes: name (String), password (String), dateOfBirth (LocalDate), primaryAddressStreet (String), primaryAddressCity (String), primaryAddressPostalCode (String), primaryAddressCountry (String), hasMailAddress (Boolean), mailAddressStreet (String), mailAddressCity (String), mailAddressPostalCode (String), mailAddressCountry (String).
 
+4) (ROLE_ADMIN) (Get) /account_holders/ -> This endpoint provides a list of all AccountHolderUsers.
 
-5) (ROLE_ADMIN) (Post) /checking_accounts/ -> Este enpoint crea una ChekingAccount. Se debe enviar como parametro un bodyrequest con los siguientes atributos:   ownerId (Long), secondaryOwnerId (Optional<Long>),
-		currency(Optional<String>), secretKey (String). En caso de que el dueño es menor de 24 años, creara una StudentCheckingAccount.
+5) (ROLE_ADMIN) (Post) /checking_accounts/ -> This endpoint creates a CheckingAccount. You should send a body request with the following attributes: ownerId (Long), secondaryOwnerId (Optional<Long>), currency (Optional<String>), secretKey (String). If the owner is under 24 years old, it will create a StudentCheckingAccount.
 
-6) (ROLE_ADMIN) (Get) /checking_accounts/ -> Este enpoint entrega un listado de todos las ChekingAccounts
+6) (ROLE_ADMIN) (Get) /checking_accounts/ -> This endpoint provides a list of all CheckingAccounts.
 
-7) (ROLE_ADMIN) (Post) /student_checking_accounts/ -> Este enpoint crea una StudentChekingAccount. Se debe enviar como parametro un bodyrequest con los siguientes atributos:   ownerId (Long), secondaryOwnerId (Optional<Long>),
-		currency(Optional<String>), secretKey (String). En caso de que el dueño sea mayor de 24, se reportara una excepcion.
+7) (ROLE_ADMIN) (Post) /student_checking_accounts/ -> This endpoint creates a StudentCheckingAccount. You should send a body request with the following attributes: ownerId (Long), secondaryOwnerId (Optional<Long>), currency (Optional<String>), secretKey (String). In case the owner is older than 24, an exception will be raised.
 
-8) (ROLE_ADMIN) (Get) /student_checking_accounts/  > Este enpoint entrega un listado de todos las StudentChekingAccounts
+8) (ROLE_ADMIN) (Get) /student_checking_accounts/ -> This endpoint provides a list of all StudentCheckingAccounts.
 
-9) (ROLE_ADMIN) (Get) /basic_accounts/ -> Segun el parametro que se le envie este endpoint, entregara :
-			Sin parametros: una lista completa de las BasicAccount
-			Enviando la Key "id": Devolvera la BasicAccount correspondiete al id (long) que se envie como parametro.
-			Enviando la Key "OwnerId": Devolvera una lista de BasicAccounts, que pertenezcan al ownerId (long) que se envie como parametro.
-			En caso de que se envien ambos parametros con su respectivos values, primara la busqueda de  BasicAccount segun el id.
+9) (ROLE_ADMIN) (Get) /basic_accounts/ -> Depending on the parameter sent to this endpoint, it will return:
+   - Without parameters: a complete list of BasicAccounts.
+   - Sending the key "id": It will return the BasicAccount corresponding to the ID (long) sent as a parameter.
+   - Sending the key "OwnerId": It will return a list of BasicAccounts belonging to the owner (long) sent as a parameter.
+   - In case both parameters are sent with their respective values, the search for BasicAccount will prioritize the ID.
 
-10) (ROLE_ACCOUNT_HOLDER) (Get) /accounts/balance -> Este endpoint devuelve el Balance de una Account, especificando el tipo de clase.
-			Se debe enviar un bodyrequest con los siguientes atributos: secretKey (String), accountId (Long). 
+10) (ROLE_ACCOUNT_HOLDER) (Get) /accounts/balance -> This endpoint returns the balance of an Account, specifying the class type. You should send a body request with the following attributes: secretKey (String), accountId (Long).
 
-
-Se incluye el fichero "BankSystem EndPoints.postman_collection.json" donde se incluyen todos los endpoints para ser utilizados en Postman
-
+The "BankSystem EndPoints.postman_collection.json" file is included, containing all the endpoints for use in Postman.
 	
-	Diagrama de clases
+Class Diagram
 ![MidtermBankSystem drawio](https://user-images.githubusercontent.com/110189061/200124831-860d4e69-0752-4f26-9da1-2a148fc2eaf5.png)
